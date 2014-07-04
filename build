@@ -110,6 +110,16 @@ debian_build_package()
 }
 
 
+build_catkin_package()
+{
+  . /opt/ros/*/setup.sh
+   CATKIN_WORKSPACE=$build_dir/..
+   cd $CATKIN_WORKSPACE
+   catkin_make
+   # run catkin_lint on every directory.
+   catkin_lint `ls -d ./src/*/`
+}
+
 # Realize a normal build in all branches except the one containing a
 # debian/ folder.
 if [ -d debian ]; then
@@ -123,8 +133,14 @@ else
     if [ ! x${DIST} = x ]; then
 	echo "skipping this build"
 	exit 0
+
+    # checking if it is a ros folder. Taking appropriate measure.
+    # is it a catkin package?
+    if [ -e package.xml ]; then
+      build_catkin_package
+    else
+      build_package
     fi
-    build_package
 fi
 
 # End debug mode
