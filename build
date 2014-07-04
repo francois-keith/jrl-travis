@@ -110,6 +110,26 @@ debian_build_package()
 }
 
 
+# build_catkin_package
+# --------------------
+#
+# build all the packages using catkin_make.
+# Also check the installation (catkin_make install)
+# and check whether the catkin package is well written (catkin_lint)
+build_catkin_package()
+{
+  . /opt/ros/*/setup.sh
+   CATKIN_WORKSPACE=$build_dir/..
+   cd $CATKIN_WORKSPACE
+   catkin_make
+   for pack in `ls -d ./src/*/`; do
+     rosdoc_lite $pack
+   done
+   catkin_make install
+   # run catkin_lint on every directory.
+   catkin_lint `ls -d ./src/*/`
+}
+
 # Realize a normal build in all branches except the one containing a
 # debian/ folder.
 if [ -d debian ]; then
@@ -124,7 +144,14 @@ else
 	echo "skipping this build"
 	exit 0
     fi
-    build_package
+
+    # checking if it is a ros folder. Taking appropriate measure.
+    # is it a catkin package?
+    if [ -e package.xml ]; then
+      build_catkin_package
+    else
+      build_package
+    fi
 fi
 
 # End debug mode
