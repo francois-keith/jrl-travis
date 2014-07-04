@@ -133,6 +133,7 @@ else
     if [ ! x${DIST} = x ]; then
 	echo "skipping this build"
 	exit 0
+    fi
 
     # checking if it is a ros folder. Taking appropriate measure.
     # is it a catkin package?
