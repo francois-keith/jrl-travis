@@ -119,6 +119,7 @@ build_catkin_package()
    for pack in `ls -d ./src/*/`; do
      rosdoc_lite $pack
    done
+   catkin_make install
    # run catkin_lint on every directory.
    catkin_lint `ls -d ./src/*/`
 }
