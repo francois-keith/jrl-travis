@@ -122,8 +122,10 @@ build_catkin_package()
    CATKIN_WORKSPACE=$build_dir/..
    cd $CATKIN_WORKSPACE
    catkin_make
-   for pack in `ls -d ./src/*/`; do
-     rosdoc_lite $pack
+   for pack in `ls -d ./src/*/ ./src/*/*/`; do
+     if -e [ $pack/package.xml ]; then
+       rosdoc_lite $pack
+     fi
    done
    catkin_make install
    # run catkin_lint on every directory.
