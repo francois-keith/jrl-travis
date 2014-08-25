@@ -118,18 +118,22 @@ debian_build_package()
 # and check whether the catkin package is well written (catkin_lint)
 build_catkin_package()
 {
-  . /opt/ros/*/setup.sh
-   CATKIN_WORKSPACE=$build_dir/..
-   cd $CATKIN_WORKSPACE
-   catkin_make
-   for pack in `ls -d ./src/*/ ./src/*/*/`; do
-     if test -f $pack/package.xml; then
-       rosdoc_lite $pack
-     fi
-   done
-   catkin_make install
-   # run catkin_lint on every directory.
-   catkin_lint `ls -d ./src/*/`
+    . /opt/ros/*/setup.sh
+    CATKIN_WORKSPACE=$build_dir/..
+    cd $CATKIN_WORKSPACE
+    catkin_make
+    for pack in `ls -d ./src/*/ ./src/*/*/`; do
+	if test -f $pack/package.xml; then
+	    rosdoc_lite $pack
+	fi
+    done
+    catkin_make install
+
+    # run catkin_lint on every directory.
+    if `test x${ALLOW_CATKINLINT_FAILURE} = x`; then
+	ALLOW_CATKINLINT_FAILURE=false
+    fi
+    catkin_lint `ls -d ./src/*/ ./src/*/*/`  || ${ALLOW_CATKINLINT_FAILURE}
 }
 
 # Realize a normal build in all branches except the one containing a
