@@ -123,7 +123,7 @@ build_catkin_package()
    cd $CATKIN_WORKSPACE
    catkin_make
    for pack in `ls -d ./src/*/ ./src/*/*/`; do
-     if -e [ $pack/package.xml ]; then
+     if test -f $pack/package.xml; then
        rosdoc_lite $pack
      fi
    done
