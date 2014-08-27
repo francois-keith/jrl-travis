@@ -152,11 +152,17 @@ else
     fi
 
     # checking if it is a ros folder. Taking appropriate measure.
-    # is it a catkin package?
+    #The current repository is a package
     if [ -e package.xml ]; then
       build_catkin_package
     else
-      build_package
+      #The current repository is a stack
+      res=`ls -d ./*/package.xml`
+      if `test 'x${res}' != 'x'`; then
+        build_catkin_package
+      else
+        build_package
+      fi
     fi
 fi
 
