@@ -53,7 +53,7 @@ catkin_git_dependency()
     git_dep=${_string%%:*}
     git_dep_branch=${_string##*:}
     if [ "$git_dep_branch" == "$git_dep" ]; then
-	git_dep_branch="master"
+	git_dep_branch="$ROS_VERSION"
     fi
     echo "--> Getting $git_dep (branch $git_dep_branch)"
     CATKIN_WORKSPACE=$build_dir/..
