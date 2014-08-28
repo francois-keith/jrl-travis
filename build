@@ -120,6 +120,15 @@ build_catkin_package()
 {
     . /opt/ros/${ROS_VERSION}/setup.sh
     CATKIN_WORKSPACE=$build_dir/..
+
+    # Limit the number of parallel jobs when running catkin_make
+    if `test x${PARALLEL_JOBS} = x`; then
+	export ROS_PARALLEL_JOBS='-j 1'
+    else
+	export ROS_PARALLEL_JOBS='-j ${PARALLEL_JOBS}'
+    fi
+
+
     cd $CATKIN_WORKSPACE
     catkin_make
     for pack in `ls -d ./src/*/ ./src/*/*/`; do
