@@ -54,7 +54,7 @@ catkin_git_dependency()
     git_dep_branch=${_string##*:}
     # For ROS packages, the default version is named after the ROS distro.
     if [ "$git_dep_branch" == "$git_dep" ]; then
-	git_dep_branch="$ROS_VERSION"
+	git_dep_branch="$ROS_DISTRO"
     fi
     echo "--> Getting $git_dep (branch $git_dep_branch)"
     CATKIN_WORKSPACE=$build_dir/..

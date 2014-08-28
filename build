@@ -118,7 +118,7 @@ debian_build_package()
 # and check whether the catkin package is well written (catkin_lint)
 build_catkin_package()
 {
-    . /opt/ros/${ROS_VERSION}/setup.sh
+    . /opt/ros/${ROS_DISTRO}/setup.sh
     CATKIN_WORKSPACE=$build_dir/..
 
     # Limit the number of parallel jobs when running catkin_make

@@ -2,7 +2,7 @@
 . .travis/common.sh
 
 # If the ros version is not defined, quit.
-if `test x${ROS_VERSION} = x`; then
+if `test x${ROS_DISTRO} = x`; then
   exit 0
 fi
 
@@ -10,15 +10,15 @@ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/ap
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 sudo apt-get update
 
-if `test x${ROS_VERSION} = xhydro`; then
+if `test x${ROS_DISTRO} = xhydro`; then
   sudo apt-get install ros-hydro-ros-base ros-hydro-rosdoc-lite python-catkin-lint
-elif `test x${ROS_VERSION} = xgroovy`; then
+elif `test x${ROS_DISTRO} = xgroovy`; then
   sudo apt-get install ros-groovy-ros-base ros-groovy-rosdoc-lite python-catkin-lint
 else
-  echo "ROS distribution unkown, exiting" + ${ROS_VERSION}
+  echo "ROS distribution unkown, exiting" + ${ROS_DISTRO}
 	exit 1
 fi
-. /opt/ros/${ROS_VERSION}/setup.sh
+. /opt/ros/${ROS_DISTRO}/setup.sh
 
 # workspace
 CATKIN_WORKSPACE=$build_dir/..
