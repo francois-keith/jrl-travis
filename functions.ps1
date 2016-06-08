@@ -68,6 +68,8 @@ function install_choco_dependencies
 
 function install_git_dependencies
 {
+  WHICH_GIT = which git
+  if ($lastexitcode -ne 0){ exit $lastexitcode }
   ForEach($g_dep in $Env:GIT_DEPENDENCIES.split(' '))
   {
     cd $Env:SOURCE_FOLDER
@@ -80,7 +82,7 @@ function install_git_dependencies
     # For projects that use cmake_add_subfortran directory this removes sh.exe
     # from the path
     $Env:Path = $Env:Path -replace "Git","dummy"
-    cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN"
+    cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN" -DGIT=${WHICH_GIT}
     if ($lastexitcode -ne 0){ exit $lastexitcode }
     msbuild INSTALL.vcxproj
     if ($lastexitcode -ne 0){ exit $lastexitcode }
