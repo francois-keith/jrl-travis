@@ -75,6 +75,7 @@ function install_git_dependencies
     git clone -b "$git_dep_branch" "$git_dep_uri" "$git_dep"
     cd $git_dep
     git submodule update --init
+    if ($lastexitcode -ne 0){ exit $lastexitcode }
     md build
     cd build
     # For projects that use cmake_add_subfortran directory this removes sh.exe
@@ -99,6 +100,7 @@ function build_project
 {
   cd $Env:PROJECT_SOURCE_DIR
   git submodule update --init
+  if ($lastexitcode -ne 0){ exit $lastexitcode }
   md build
   cd build
   # See comment in dependencies regarding $Env:Path manipulation
