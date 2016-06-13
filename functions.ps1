@@ -105,7 +105,7 @@ function build_project
   cd build
   # See comment in dependencies regarding $Env:Path manipulation
   # $Env:Path = $Env:Path -replace "Git","dummy"
-  cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN"  -DCMAKE_BUILD_TYPE=${Env:CMAKE_BUILD_TYPE}
+  cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN"  -DCMAKE_BUILD_TYPE=Debug
   if ($lastexitcode -ne 0){ exit $lastexitcode }
   msbuild INSTALL.vcxproj
   if ($lastexitcode -ne 0){ exit $lastexitcode }
@@ -116,7 +116,7 @@ function test_project
 {
   cd %PROJECT_SOURCE_DIR%/build
   ctest -N
-  ctest --build-config ${Env:CMAKE_BUILD_TYPE} --exclude-regex example
+  ctest --build-config Debug --exclude-regex example
   if ($lastexitcode -ne 0)
   {
     type Testing/Temporary/LastTest.log
