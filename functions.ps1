@@ -116,7 +116,7 @@ function test_project
 {
   cd %PROJECT_SOURCE_DIR%/build
   ctest -N
-  ctest --build-config Release --exclude-regex example
+  ctest --build-config Debug --exclude-regex example
   if ($lastexitcode -ne 0)
   {
     type Testing/Temporary/LastTest.log
