@@ -83,7 +83,7 @@ function install_git_dependencies
     # $Env:Path = $Env:Path -replace "Git","dummy"
     cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN"  -DCMAKE_BUILD_TYPE=Release
     if ($lastexitcode -ne 0){ exit $lastexitcode }
-    msbuild INSTALL.vcxproj
+    msbuild INSTALL.vcxproj /p:Configuration=Release
     if ($lastexitcode -ne 0){ exit $lastexitcode }
     # Reverse our dirty work
     # $Env:Path = $Env:Path -replace "dummy","Git"
@@ -107,7 +107,7 @@ function build_project
   # $Env:Path = $Env:Path -replace "Git","dummy"
   cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN"  -DCMAKE_BUILD_TYPE=Release
   if ($lastexitcode -ne 0){ exit $lastexitcode }
-  msbuild INSTALL.vcxproj
+  msbuild INSTALL.vcxproj /p:Configuration=Release
   if ($lastexitcode -ne 0){ exit $lastexitcode }
   # $Env:Path = $Env:Path -replace "dummy","Git"
 }
