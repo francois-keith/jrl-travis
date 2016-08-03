@@ -101,6 +101,7 @@ function build_project
   md build
   cd build
   # See comment in dependencies regarding $Env:Path manipulation
+  cmake --version
   cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN"
   if ($lastexitcode -ne 0){ exit $lastexitcode }
   msbuild INSTALL.vcxproj /p:Configuration=Debug
