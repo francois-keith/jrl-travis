@@ -81,7 +81,7 @@ function install_git_dependencies
     # For projects that use cmake_add_subfortran directory this removes sh.exe
     # from the path
     $Env:Path = $Env:Path -replace "Git","dummy"
-    cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN" -DGIT_EXECUTABLE="C:/Program Files/Git/cmd/git.exe"
+    cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN" -DGIT="C:/Program Files/Git"
 
     if ($lastexitcode -ne 0){ exit $lastexitcode }
     msbuild INSTALL.vcxproj /p:Configuration=Debug
@@ -106,7 +106,7 @@ function build_project
   cd build
   # See comment in dependencies regarding $Env:Path manipulation
   $Env:Path = $Env:Path -replace "Git","dummy"
-  cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN" -DGIT_EXECUTABLE="C:/Program Files/Git/cmd/git.exe"
+  cmake ../ -G "Visual Studio 14 2015 Win64" -DCMAKE_INSTALL_PREFIX="${Env:CMAKE_INSTALL_PREFIX}" -DPYTHON_BINDING=OFF -DMINGW_GFORTRAN="$env:MINGW_GFORTRAN" -DGIT="C:/Program Files"
   if ($lastexitcode -ne 0){ exit $lastexitcode }
   msbuild INSTALL.vcxproj /p:Configuration=Debug
   if ($lastexitcode -ne 0){ exit $lastexitcode }
